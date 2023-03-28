@@ -3,14 +3,14 @@ package main
 import (
 	"log"
 
-	"iteung/config"
+	"github.com/aulianafahrian/aufa-ulbi/config"
 
 	"github.com/aiteung/musik"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 
 	"github.com/whatsauth/whatsauth"
 
-	"iteung/url"
+	"github.com/aulianafahrian/aufa-ulbi/url"
 
 	"github.com/gofiber/fiber/v2"
 )
