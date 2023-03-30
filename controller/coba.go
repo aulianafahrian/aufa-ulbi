@@ -41,7 +41,7 @@ func GetDataProdi(c *fiber.Ctx) error {
 	return c.JSON(prodi)
 }
 func GetDataJurusan(c *fiber.Ctx) error {
-	jurusan := module.GetDataJurusanFromKodeJurusan("1214049", config.Ulbimongoconn, "jurusan")
+	jurusan := module.GetDataJurusanFromKodeJurusan("22222", config.Ulbimongoconn, "jurusan")
 	return c.JSON(jurusan)
 }
 
