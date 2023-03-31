@@ -20,7 +20,7 @@ import (
 func Home(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"github_repo": "https://github.com/aulianafahrian/aufa-ulbi",
-		"message":     "You are at the root endpoint 😉",
+		"message":     "You are at the root endpoint 😉 sip",
 		"success":     true,
 	})
 }
