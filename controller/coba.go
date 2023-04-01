@@ -67,8 +67,8 @@ func GetPresensiID(c *fiber.Ctx) error {
 }
 
 func GetAllProyek1(c *fiber.Ctx) error {
-	proyek1 := module.GetAllProyek1(config.Ulbimongoconn, "proyek")
-	return c.JSON(proyek1)
+	py1 := module.GetAllProyek1(config.Ulbimongoconn, "proyek1")
+	return c.JSON(py1)
 }
 
 func GetProyek1(c *fiber.Ctx) error {
