@@ -30,6 +30,8 @@ github.com/aulianafahrian/be_p1 v0.0.7 h1:RCBu+tBm0UwBzrwkU5SlDedPo54P7+QfexjcEp
 github.com/aulianafahrian/be_p1 v0.0.7/go.mod h1:8lvx8fEGRc7cExI1tagXuT9GG/tCJl+5asyuQb9ShNw=
 github.com/aulianafahrian/be_p1 v0.0.8 h1:xvtkDhlMoFpAuLtBphIoUpfxMli1Rlwzoxz1JptOuVk=
 github.com/aulianafahrian/be_p1 v0.0.8/go.mod h1:8lvx8fEGRc7cExI1tagXuT9GG/tCJl+5asyuQb9ShNw=
+github.com/aulianafahrian/be_p1 v0.0.9 h1:2giu4XlL2ickHeXCiy5Kj/qpDK9imy88RXw1DarCtKk=
+github.com/aulianafahrian/be_p1 v0.0.9/go.mod h1:8lvx8fEGRc7cExI1tagXuT9GG/tCJl+5asyuQb9ShNw=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
