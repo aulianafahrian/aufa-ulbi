@@ -34,6 +34,8 @@ github.com/aulianafahrian/be_p1 v0.0.9 h1:2giu4XlL2ickHeXCiy5Kj/qpDK9imy88RXw1Da
 github.com/aulianafahrian/be_p1 v0.0.9/go.mod h1:8lvx8fEGRc7cExI1tagXuT9GG/tCJl+5asyuQb9ShNw=
 github.com/aulianafahrian/be_p1 v0.0.10 h1:saAH6vzIvfTPWO407VbA00UrO7A0i0h+3iMtXDbmO1U=
 github.com/aulianafahrian/be_p1 v0.0.10/go.mod h1:8lvx8fEGRc7cExI1tagXuT9GG/tCJl+5asyuQb9ShNw=
+github.com/aulianafahrian/be_p1 v0.1.1 h1:SRWHjkfz93Wk0Lr/VyhTIiHMfYEel+EQkIqSNzv0Cgc=
+github.com/aulianafahrian/be_p1 v0.1.1/go.mod h1:8lvx8fEGRc7cExI1tagXuT9GG/tCJl+5asyuQb9ShNw=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

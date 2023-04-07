@@ -71,6 +71,16 @@ func GetAllProyek1(c *fiber.Ctx) error {
 	return c.JSON(py1)
 }
 
+func GetAllDataMhs(c *fiber.Ctx) error {
+	mhs := module.GetAllDataMahasiswa(config.Ulbimongoconn, "mahasiswa")
+	return c.JSON(mhs)
+}
+
+func GetAllDataDsn(c *fiber.Ctx) error {
+	dsn := module.GetAllDataDosen(config.Ulbimongoconn, "dosen")
+	return c.JSON(dsn)
+}
+
 func GetProyek1(c *fiber.Ctx) error {
 	proyek1 := module.GetProyek1FromNPM("1214049", config.Ulbimongoconn, "proyek1")
 	return c.JSON(proyek1)
