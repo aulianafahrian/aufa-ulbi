@@ -14,6 +14,7 @@ import (
 
 	"github.com/aulianafahrian/be_p1/model"
 	"github.com/aulianafahrian/be_p1/module"
+	inimodellatihan "github.com/indrariksa/be_presensi/model"
 	inimodullatihan "github.com/indrariksa/be_presensi/module"
 )
 
@@ -24,6 +25,8 @@ func Home(c *fiber.Ctx) error {
 		"success":     true,
 	})
 }
+
+//Latihan Presensi
 
 func GetPresensi(c *fiber.Ctx) error {
 	ps := cek.GetPresensiCurrentMonth(config.Ulbimongoconn)
@@ -65,6 +68,37 @@ func GetPresensiID(c *fiber.Ctx) error {
 	}
 	return c.JSON(ps)
 }
+
+func InsertData(c *fiber.Ctx) error {
+	db := config.Ulbimongoconn
+	var presensi inimodellatihan.Presensi
+	if err := c.BodyParser(&presensi); err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+	insertedID, err := inimodullatihan.InsertPresensi(db, "presensi",
+		presensi.Longitude,
+		presensi.Latitude,
+		presensi.Location,
+		presensi.Phone_number,
+		presensi.Checkin,
+		presensi.Biodata)
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+	return c.Status(http.StatusOK).JSON(fiber.Map{
+		"status":      http.StatusOK,
+		"message":     "Data berhasil disimpan.",
+		"inserted_id": insertedID,
+	})
+}
+
+//proyek 1
 
 func GetAllProyek1(c *fiber.Ctx) error {
 	py1 := module.GetAllProyek1(config.Ulbimongoconn, "proyek1")

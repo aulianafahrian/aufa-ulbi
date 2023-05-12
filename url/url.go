@@ -11,9 +11,6 @@ func Web(page *fiber.App) {
 	page.Post("/api/whatsauth/request", controller.PostWhatsAuthRequest)  //API from user whatsapp message from iteung gowa
 	page.Get("/ws/whatsauth/qr", websocket.New(controller.WsWhatsAuthQR)) //websocket whatsauth
 	page.Get("/", controller.Home)                                        //ujicoba panggil package musik
-	page.Get("/presensi", controller.GetAllPresensi)                      //menampilkan seluruh data presensi
-	page.Get("/presensi/:id", controller.GetPresensiID)                   //menampilkan data presensi berdasarkan id
-	page.Get("/presensi", controller.GetPresensi)
 	page.Get("/proyek1", controller.GetProyek1)
 	page.Get("/allproyek1", controller.GetAllProyek1)
 	page.Get("/allmahasiswa", controller.GetAllDataMhs)
@@ -27,4 +24,9 @@ func Web(page *fiber.App) {
 	page.Post("/insertdosen", controller.InsertDataDosen)
 	page.Post("/insertprodi", controller.InsertDataProdi)
 	page.Post("/insertjurusan", controller.InsertDataJurusan)
+	//presensi
+	page.Get("/presensi", controller.GetAllPresensi)    //menampilkan seluruh data presensi
+	page.Get("/presensi/:id", controller.GetPresensiID) //menampilkan data presensi berdasarkan id
+	page.Get("/presensi", controller.GetPresensi)
+	page.Post("/ins", controller.InsertData)
 }
