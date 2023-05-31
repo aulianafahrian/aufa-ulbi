@@ -1,7 +1,16 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "description": "this is a simple server",
+        "title": "Anganaufea TES SWAG",
+        "contact": {
+            "name": "API Support",
+            "url": "https://github.com/aulianafahrian",
+            "email": "1214049@std.ulbi.ac.id"
+        },
+        "version": "1.0"
     },
+    "host": "aufa-ulbi.herokuapp.com",
+    "basePath": "/",
     "paths": {}
 }

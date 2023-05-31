@@ -1,4 +1,12 @@
+basePath: /
+host: aufa-ulbi.herokuapp.com
 info:
-  contact: {}
+  contact:
+    email: 1214049@std.ulbi.ac.id
+    name: API Support
+    url: https://github.com/aulianafahrian
+  description: this is a simple server
+  title: Anganaufea TES SWAG
+  version: "1.0"
 paths: {}
 swagger: "2.0"
