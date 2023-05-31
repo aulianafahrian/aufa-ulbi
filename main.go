@@ -13,7 +13,21 @@ import (
 	"github.com/aulianafahrian/aufa-ulbi/url"
 
 	"github.com/gofiber/fiber/v2"
+	//"github.com/gofiber/swagger"
+	_ "github.com/aulianafahrian/aufa-ulbi/docs"
 )
+
+// @title Anganaufea TES SWAG
+// @version 1.0
+// @description this is a simple server
+
+// @contact.name API Support
+// @contact.url https://github.com/aulianafahrian
+// @contact.email 1214049@std.ulbi.ac.id
+
+// @host aufa-ulbi.herokuapp.com
+// @BasePath /
+// @scheme https http
 
 func main() {
 	go whatsauth.RunHub()
