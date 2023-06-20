@@ -3,17 +3,18 @@ module github.com/aulianafahrian/aufa-ulbi
 go 1.20
 
 require (
+	github.com/Fatwaff/be_tugbes v0.0.5
 	github.com/aiteung/atdb v0.0.9
 	github.com/aiteung/musik v0.0.5
 	github.com/aiteung/presensi v0.0.34
-	github.com/aulianafahrian/be_p1 v0.1.1
+	github.com/aulianafahrian/be_p1 v0.1.2
 	github.com/gofiber/fiber/v2 v2.46.0
 	github.com/gofiber/swagger v0.1.12
 	github.com/gofiber/websocket/v2 v2.1.4
 	github.com/indrariksa/be_presensi v0.0.12
 	github.com/swaggo/swag v1.16.1
 	github.com/whatsauth/whatsauth v0.1.89
-	go.mongodb.org/mongo-driver v1.11.3
+	go.mongodb.org/mongo-driver v1.11.4
 )
 
 require (
@@ -24,6 +25,7 @@ require (
 	github.com/aiteung/atmessage v0.0.17 // indirect
 	github.com/aiteung/atmodel v0.0.2 // indirect
 	github.com/andybalholm/brotli v1.0.5 // indirect
+	github.com/badoux/checkmail v1.2.1 // indirect
 	github.com/fasthttp/websocket v1.5.1 // indirect
 	github.com/go-openapi/jsonpointer v0.19.6 // indirect
 	github.com/go-openapi/jsonreference v0.20.2 // indirect
