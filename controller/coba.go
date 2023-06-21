@@ -377,18 +377,46 @@ func GetAllProyek(c *fiber.Ctx) error {
 	return c.JSON(ps)
 }
 
-// GetPresensiID godoc
-// @Summary Get By ID Data Presensi.
-// @Description Ambil per ID data presensi.
-// @Tags Presensi
+// GetAllMahasiswa godoc
+// @Summary Get All Data Mahasiswa.
+// @Description Mengambil semua data mahasiswa.
+// @Tags Proyek
+// @Accept json
+// @Produce json
+// @Success 200 {object} Mahasiswa
+// @Router /proyekmahasiswa [get]
+func GetAllMahasiswa(c *fiber.Ctx) error {
+	var data []model.Mahasiswa
+	ps := moduleTugbes.GetAllDocs(config.Ulbimongoconn2, "mahasiswa", data)
+	return c.JSON(ps)
+}
+
+// GetAllDosen godoc
+// @Summary Get All Data Dosen.
+// @Description Mengambil semua data dosen.
+// @Tags Proyek
+// @Accept json
+// @Produce json
+// @Success 200 {object} Dosen
+// @Router /proyekdosen [get]
+func GetAllDosen(c *fiber.Ctx) error {
+	var data []model.Dosen
+	ps := moduleTugbes.GetAllDocs(config.Ulbimongoconn2, "dosen", data)
+	return c.JSON(ps)
+}
+
+// GetProyekFromID godoc
+// @Summary Get By ID Data Proyek.
+// @Description Ambil per ID data proyek.
+// @Tags Proyek
 // @Accept json
 // @Produce json
 // @Param id path string true "Masukan ID"
-// @Success 200 {object} Presensi
+// @Success 200 {object} Proyek
 // @Failure 400
 // @Failure 404
 // @Failure 500
-// @Router /presensi/{id} [get]
+// @Router /proyek/{id} [get]
 func GetProyekFromID(c *fiber.Ctx) error {
 	var data model.Proyek
 	id := c.Params("id")
@@ -407,21 +435,35 @@ func GetProyekFromID(c *fiber.Ctx) error {
 	}
 	ps, err := moduleTugbes.GetDocFromID(objID, config.Ulbimongoconn2, "proyek", data)
 	if err != nil {
-		if errors.Is(err, mongo.ErrNoDocuments) {
-			return c.Status(http.StatusNotFound).JSON(fiber.Map{
-				"status":  http.StatusNotFound,
-				"message": fmt.Sprintf("No data found for id %s", id),
-			})
-		}
+		// if errors.Is(err, mongo.ErrNoDocuments) {
+		// 	return c.Status(http.StatusNotFound).JSON(fiber.Map{
+		// 		"status":  http.StatusNotFound,
+		// 		"message": fmt.Sprintf("No data found for id %s", id),
+		// 	})
+		// }
 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
-			"status":  http.StatusInternalServerError,
-			"message": fmt.Sprintf("Error retrieving data for id %s", id),
+			"status": http.StatusInternalServerError,
+			// "message": fmt.Sprintf("Error retrieving data for id %s", id),
+			"message": err.Error(),
 		})
 	}
 	return c.JSON(ps)
 }
 
-func GetProyekFromID2(c *fiber.Ctx) error {
+// GetMahasiswaFromID godoc
+// @Summary Get By ID Data Mahasiswa.
+// @Description Ambil per ID data mahasiswa.
+// @Tags Proyek
+// @Accept json
+// @Produce json
+// @Param id path string true "Masukan ID"
+// @Success 200 {object} Mahasiswa
+// @Failure 400
+// @Failure 404
+// @Failure 500
+// @Router /proyekmahasiswa/{id} [get]
+func GetMahasiswaFromID(c *fiber.Ctx) error {
+	var data model.Mahasiswa
 	id := c.Params("id")
 	if id == "" {
 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
@@ -436,21 +478,98 @@ func GetProyekFromID2(c *fiber.Ctx) error {
 			"message": "Invalid id parameter",
 		})
 	}
-	ps, err := moduleTugbes.GetDocFromID2(objID, config.Ulbimongoconn2, "proyek")
+	ps, err := moduleTugbes.GetDocFromID(objID, config.Ulbimongoconn2, "mahasiswa", data)
 	if err != nil {
-		if errors.Is(err, mongo.ErrNoDocuments) {
-			return c.Status(http.StatusNotFound).JSON(fiber.Map{
-				"status":  http.StatusNotFound,
-				"message": fmt.Sprintf("No data found for id %s", id),
-			})
-		}
+		// if errors.Is(err, mongo.ErrNoDocuments) {
+		// 	return c.Status(http.StatusNotFound).JSON(fiber.Map{
+		// 		"status":  http.StatusNotFound,
+		// 		"message": fmt.Sprintf("No data found for id %s", id),
+		// 	})
+		// }
 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
-			"status":  http.StatusInternalServerError,
-			"message": fmt.Sprintf("Error retrieving data for id %s", id),
+			"status": http.StatusInternalServerError,
+			// "message": fmt.Sprintf("Error retrieving data for id %s", id),
+			"message": err.Error(),
 		})
 	}
 	return c.JSON(ps)
 }
+
+// GetDosenFromID godoc
+// @Summary Get By ID Data Dosen.
+// @Description Ambil per ID data dosen.
+// @Tags Proyek
+// @Accept json
+// @Produce json
+// @Param id path string true "Masukan ID"
+// @Success 200 {object} Dosen
+// @Failure 400
+// @Failure 404
+// @Failure 500
+// @Router /proyekdosen/{id} [get]
+func GetDosenFromID(c *fiber.Ctx) error {
+	var data model.Dosen
+	id := c.Params("id")
+	if id == "" {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": "Wrong parameter",
+		})
+	}
+	objID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
+			"status":  http.StatusBadRequest,
+			"message": "Invalid id parameter",
+		})
+	}
+	ps, err := moduleTugbes.GetDocFromID(objID, config.Ulbimongoconn2, "dosen", data)
+	if err != nil {
+		// if errors.Is(err, mongo.ErrNoDocuments) {
+		// 	return c.Status(http.StatusNotFound).JSON(fiber.Map{
+		// 		"status":  http.StatusNotFound,
+		// 		"message": fmt.Sprintf("No data found for id %s", id),
+		// 	})
+		// }
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status": http.StatusInternalServerError,
+			// "message": fmt.Sprintf("Error retrieving data for id %s", id),
+			"message": err.Error(),
+		})
+	}
+	return c.JSON(ps)
+}
+
+// func GetProyekFromID2(c *fiber.Ctx) error {
+// 	id := c.Params("id")
+// 	if id == "" {
+// 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+// 			"status":  http.StatusInternalServerError,
+// 			"message": "Wrong parameter",
+// 		})
+// 	}
+// 	objID, err := primitive.ObjectIDFromHex(id)
+// 	if err != nil {
+// 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
+// 			"status":  http.StatusBadRequest,
+// 			"message": "Invalid id parameter",
+// 		})
+// 	}
+// 	ps, err := moduleTugbes.GetDocFromID2(objID, config.Ulbimongoconn2, "proyek")
+// 	if err != nil {
+// 		if errors.Is(err, mongo.ErrNoDocuments) {
+// 			return c.Status(http.StatusNotFound).JSON(fiber.Map{
+// 				"status":  http.StatusNotFound,
+// 				"message": fmt.Sprintf("No data found for id %s", id),
+// 			})
+// 		}
+// 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+// 			"status":  http.StatusInternalServerError,
+// 			"message": fmt.Sprintf("Error retrieving data for id %s", id),
+// 		})
+// 	}
+// 	return c.JSON(ps)
+// }
 
 // InsertDataProyek godoc
 // @Summary Insert data proyek.
@@ -486,7 +605,75 @@ func InsertDataProyek(c *fiber.Ctx) error {
 	})
 }
 
-// fungsi UPDATE presensi
+// InsertDataMhs godoc
+// @Summary Insert data mahasiswa.
+// @Description Input data mahasiswa.
+// @Tags Proyek
+// @Accept json
+// @Produce json
+// @Param request body Mahasiswa true "Payload Body [RAW]"
+// @Success 200 {object} Mahasiswa
+// @Failure 400
+// @Failure 500
+// @Router /proyekmahasiswa [post]
+func InsertDataMhs(c *fiber.Ctx) error {
+	db := config.Ulbimongoconn2
+	var mahasiswa model.Mahasiswa
+	if err := c.BodyParser(&mahasiswa); err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+	insertedID, err := moduleTugbes.InsertOneDoc(db, "mahasiswa", mahasiswa)
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+	return c.Status(http.StatusOK).JSON(fiber.Map{
+		"status":      http.StatusOK,
+		"message":     "Data berhasil disimpan.",
+		"inserted_id": insertedID,
+	})
+}
+
+// InsertDataDsn godoc
+// @Summary Insert data dosen.
+// @Description Input data dosen.
+// @Tags Proyek
+// @Accept json
+// @Produce json
+// @Param request body Dosen true "Payload Body [RAW]"
+// @Success 200 {object} Dosen
+// @Failure 400
+// @Failure 500
+// @Router /proyekdosen [post]
+func InsertDataDsn(c *fiber.Ctx) error {
+	db := config.Ulbimongoconn2
+	var dosen model.Dosen
+	if err := c.BodyParser(&dosen); err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+	insertedID, err := moduleTugbes.InsertOneDoc(db, "dosen", dosen)
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+	return c.Status(http.StatusOK).JSON(fiber.Map{
+		"status":      http.StatusOK,
+		"message":     "Data berhasil disimpan.",
+		"inserted_id": insertedID,
+	})
+}
+
+// fungsi UPDATE proyek
 
 // UpdateDataProyek godoc
 // @Summary Update data proyek.
@@ -540,7 +727,111 @@ func UpdateDataProyek(c *fiber.Ctx) error {
 	})
 }
 
-// fungsi DELETE presensi
+// UpdateDataMahasiswa godoc
+// @Summary Update data mahasiswa.
+// @Description Ubah data mahasiswa.
+// @Tags Proyek
+// @Accept json
+// @Produce json
+// @Param id path string true "Masukan ID"
+// @Param request body Mahasiswa true "Payload Body [RAW]"
+// @Success 200 {object} Mahasiswa
+// @Failure 400
+// @Failure 500
+// @Router /proyekmahasiswa/{id} [put]
+func UpdateDataMahasiswa(c *fiber.Ctx) error {
+	db := config.Ulbimongoconn2
+
+	// Get the ID from the URL parameter
+	id := c.Params("id")
+
+	// Parse the ID into an ObjectID
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+
+	// Parse the request body into a Presensi object
+	var mahasiswa model.Mahasiswa
+	if err := c.BodyParser(&mahasiswa); err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+
+	// Call the UpdatePresensi function with the parsed ID and the Presensi object
+	err = moduleTugbes.UpdateOneDoc(db, "mahasiswa",
+		objectID, mahasiswa)
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+
+	return c.Status(http.StatusOK).JSON(fiber.Map{
+		"status":  http.StatusOK,
+		"message": "Data successfully updated",
+	})
+}
+
+// UpdateDataDosen godoc
+// @Summary Update data dosen.
+// @Description Ubah data dosen.
+// @Tags Proyek
+// @Accept json
+// @Produce json
+// @Param id path string true "Masukan ID"
+// @Param request body Dosen true "Payload Body [RAW]"
+// @Success 200 {object} Dosen
+// @Failure 400
+// @Failure 500
+// @Router /proyekdosen/{id} [put]
+func UpdateDataDosen(c *fiber.Ctx) error {
+	db := config.Ulbimongoconn2
+
+	// Get the ID from the URL parameter
+	id := c.Params("id")
+
+	// Parse the ID into an ObjectID
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+
+	// Parse the request body into a Presensi object
+	var dosen model.Dosen
+	if err := c.BodyParser(&dosen); err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+
+	// Call the UpdatePresensi function with the parsed ID and the Presensi object
+	err = moduleTugbes.UpdateOneDoc(db, "dosen",
+		objectID, dosen)
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+
+	return c.Status(http.StatusOK).JSON(fiber.Map{
+		"status":  http.StatusOK,
+		"message": "Data successfully updated",
+	})
+}
+
+// fungsi DELETE proyek
 
 // DeleteProyekByID godoc
 // @Summary Delete data proyek.
@@ -571,6 +862,90 @@ func DeleteProyekByID(c *fiber.Ctx) error {
 	}
 
 	err = moduleTugbes.DeleteDocsByID(objID, config.Ulbimongoconn2, "proyek")
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": fmt.Sprintf("Error deleting data for id %s", id),
+		})
+	}
+
+	return c.Status(http.StatusOK).JSON(fiber.Map{
+		"status":  http.StatusOK,
+		"message": fmt.Sprintf("Data with id %s deleted successfully", id),
+	})
+}
+
+// DeleteMahasiswaByID godoc
+// @Summary Delete data mahasiswa.
+// @Description Hapus data mahasiswa.
+// @Tags Proyek
+// @Accept json
+// @Produce json
+// @Param id path string true "Masukan ID"
+// @Success 200
+// @Failure 400
+// @Failure 500
+// @Router /proyekmahasiswa/{id} [delete]
+func DeleteMahasiswaByID(c *fiber.Ctx) error {
+	id := c.Params("id")
+	if id == "" {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": "Wrong parameter",
+		})
+	}
+
+	objID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
+			"status":  http.StatusBadRequest,
+			"message": "Invalid id parameter",
+		})
+	}
+
+	err = moduleTugbes.DeleteDocsByID(objID, config.Ulbimongoconn2, "mahasiswa")
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": fmt.Sprintf("Error deleting data for id %s", id),
+		})
+	}
+
+	return c.Status(http.StatusOK).JSON(fiber.Map{
+		"status":  http.StatusOK,
+		"message": fmt.Sprintf("Data with id %s deleted successfully", id),
+	})
+}
+
+// DeleteDosenByID godoc
+// @Summary Delete data dosen.
+// @Description Hapus data dosen.
+// @Tags Proyek
+// @Accept json
+// @Produce json
+// @Param id path string true "Masukan ID"
+// @Success 200
+// @Failure 400
+// @Failure 500
+// @Router /proyekdosen/{id} [delete]
+func DeleteDosenByID(c *fiber.Ctx) error {
+	id := c.Params("id")
+	if id == "" {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": "Wrong parameter",
+		})
+	}
+
+	objID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
+			"status":  http.StatusBadRequest,
+			"message": "Invalid id parameter",
+		})
+	}
+
+	err = moduleTugbes.DeleteDocsByID(objID, config.Ulbimongoconn2, "dosen")
 	if err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
 			"status":  http.StatusInternalServerError,

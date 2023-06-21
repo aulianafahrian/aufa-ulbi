@@ -34,10 +34,23 @@ func Web(page *fiber.App) {
 	page.Delete("/delete/:id", controller.DeletePresensiByID)
 	page.Get("/docs/*", swagger.HandlerDefault)
 	// tugbes uas
-	page.Get("/proyek", controller.GetAllProyek)          //menampilkan seluruh data proyek
-	page.Get("/proyek/:id", controller.GetProyekFromID)   //menampilkan data proyek berdasarkan id
-	page.Get("/proyek2/:id", controller.GetProyekFromID2) //menampilkan data proyek berdasarkan id
+	// page.Get("/proyek2/:id", controller.GetProyekFromID2) //menampilkan data proyek berdasarkan id
+	// proyek
+	page.Get("/proyek", controller.GetAllProyek)
+	page.Get("/proyek/:id", controller.GetProyekFromID)
 	page.Post("/proyek", controller.InsertDataProyek)
 	page.Put("/proyek/:id", controller.UpdateDataProyek)
 	page.Delete("/proyek/:id", controller.DeleteProyekByID)
+	// mahasiswa
+	page.Get("/proyekmahasiswa", controller.GetAllMahasiswa)
+	page.Get("/proyekmahasiswa/:id", controller.GetMahasiswaFromID)
+	page.Post("/proyekmahasiswa", controller.InsertDataMhs)
+	page.Put("/proyekmahasiswa/:id", controller.UpdateDataMahasiswa)
+	page.Delete("/proyekmahasiswa/:id", controller.DeleteMahasiswaByID)
+	// dosen
+	page.Get("/proyekdosen", controller.GetAllDosen)
+	page.Get("/proyekdosen/:id", controller.GetDosenFromID)
+	page.Post("/proyekdosen", controller.InsertDataDsn)
+	page.Put("/proyekdosen/:id", controller.UpdateDataDosen)
+	page.Delete("/proyekdosen/:id", controller.DeleteDosenByID)
 }
