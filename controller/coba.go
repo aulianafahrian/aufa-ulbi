@@ -418,7 +418,6 @@ func GetAllDosen(c *fiber.Ctx) error {
 // @Failure 500
 // @Router /proyek/{id} [get]
 func GetProyekFromID(c *fiber.Ctx) error {
-	var data model.Proyek
 	id := c.Params("id")
 	if id == "" {
 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
@@ -433,7 +432,7 @@ func GetProyekFromID(c *fiber.Ctx) error {
 			"message": "Invalid id parameter",
 		})
 	}
-	ps, err := moduleTugbes.GetDocFromID(objID, config.Ulbimongoconn2, "proyek", data)
+	ps, err := module.GetProyekFromID(objID, config.Ulbimongoconn2, "proyek")
 	if err != nil {
 		// if errors.Is(err, mongo.ErrNoDocuments) {
 		// 	return c.Status(http.StatusNotFound).JSON(fiber.Map{
@@ -463,7 +462,6 @@ func GetProyekFromID(c *fiber.Ctx) error {
 // @Failure 500
 // @Router /proyekmahasiswa/{id} [get]
 func GetMahasiswaFromID(c *fiber.Ctx) error {
-	var data model.Mahasiswa
 	id := c.Params("id")
 	if id == "" {
 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
@@ -478,7 +476,7 @@ func GetMahasiswaFromID(c *fiber.Ctx) error {
 			"message": "Invalid id parameter",
 		})
 	}
-	ps, err := moduleTugbes.GetDocFromID(objID, config.Ulbimongoconn2, "mahasiswa", data)
+	ps, err := module.GetMahasiswaFromID(objID, config.Ulbimongoconn2, "mahasiswa")
 	if err != nil {
 		// if errors.Is(err, mongo.ErrNoDocuments) {
 		// 	return c.Status(http.StatusNotFound).JSON(fiber.Map{
@@ -508,7 +506,6 @@ func GetMahasiswaFromID(c *fiber.Ctx) error {
 // @Failure 500
 // @Router /proyekdosen/{id} [get]
 func GetDosenFromID(c *fiber.Ctx) error {
-	var data model.Dosen
 	id := c.Params("id")
 	if id == "" {
 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
@@ -523,7 +520,7 @@ func GetDosenFromID(c *fiber.Ctx) error {
 			"message": "Invalid id parameter",
 		})
 	}
-	ps, err := moduleTugbes.GetDocFromID(objID, config.Ulbimongoconn2, "dosen", data)
+	ps, err := module.GetDosenFromID(objID, config.Ulbimongoconn2, "dosen")
 	if err != nil {
 		// if errors.Is(err, mongo.ErrNoDocuments) {
 		// 	return c.Status(http.StatusNotFound).JSON(fiber.Map{
