@@ -1,5 +1,16 @@
 basePath: /
 definitions:
+  controller.Dosen:
+    properties:
+      _id:
+        type: string
+      nama:
+        type: string
+      nid:
+        type: string
+      prodi:
+        $ref: '#/definitions/controller.Prodi'
+    type: object
   controller.JamKerja:
     properties:
       durasi:
@@ -33,6 +44,15 @@ definitions:
         example: 2
         type: integer
     type: object
+  controller.Jurusan:
+    properties:
+      _id:
+        type: string
+      kode_jurusan:
+        type: string
+      nama:
+        type: string
+    type: object
   controller.Karyawan:
     properties:
       hari_kerja:
@@ -61,6 +81,21 @@ definitions:
         example: "08123456789"
         type: string
     type: object
+  controller.Mahasiswa:
+    properties:
+      _id:
+        type: string
+      jurusan:
+        $ref: '#/definitions/controller.Jurusan'
+      kelas:
+        type: string
+      nama:
+        type: string
+      npm:
+        type: string
+      prodi:
+        $ref: '#/definitions/controller.Prodi'
+    type: object
   controller.Presensi:
     properties:
       biodata:
@@ -80,6 +115,36 @@ definitions:
         type: number
       phone_number:
         example: "08123456789"
+        type: string
+    type: object
+  controller.Prodi:
+    properties:
+      _id:
+        type: string
+      kode_prodi:
+        type: string
+      nama:
+        type: string
+    type: object
+  controller.Proyek:
+    properties:
+      _id:
+        type: string
+      biodata_mahasiswa:
+        $ref: '#/definitions/controller.Mahasiswa'
+      dosen_pembimbing:
+        $ref: '#/definitions/controller.Dosen'
+      dosen_penguji:
+        $ref: '#/definitions/controller.Dosen'
+      judul:
+        type: string
+      partner_mahasiswa:
+        $ref: '#/definitions/controller.Mahasiswa'
+      ruang_sidang:
+        type: string
+      tanggal_sidang:
+        type: string
+      tipe_proyek:
         type: string
     type: object
 host: aufa-ulbi.herokuapp.com
@@ -183,6 +248,363 @@ paths:
       summary: Get By ID Data Presensi.
       tags:
       - Presensi
+  /proyek:
+    get:
+      consumes:
+      - application/json
+      description: Mengambil semua data proyek.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Proyek'
+      summary: Get All Data Proyek.
+      tags:
+      - Proyek
+    post:
+      consumes:
+      - application/json
+      description: Input data proyek.
+      parameters:
+      - description: Payload Body [RAW]
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controller.Proyek'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Proyek'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Insert data proyek.
+      tags:
+      - Proyek
+  /proyek/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Hapus data proyek.
+      parameters:
+      - description: Masukan ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Delete data proyek.
+      tags:
+      - Proyek
+    get:
+      consumes:
+      - application/json
+      description: Ambil per ID data proyek.
+      parameters:
+      - description: Masukan ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Proyek'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Get By ID Data Proyek.
+      tags:
+      - Proyek
+    put:
+      consumes:
+      - application/json
+      description: Ubah data proyek.
+      parameters:
+      - description: Masukan ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Payload Body [RAW]
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controller.Proyek'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Proyek'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Update data proyek.
+      tags:
+      - Proyek
+  /proyekdosen:
+    get:
+      consumes:
+      - application/json
+      description: Mengambil semua data dosen.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Dosen'
+      summary: Get All Data Dosen.
+      tags:
+      - Proyek
+    post:
+      consumes:
+      - application/json
+      description: Input data dosen.
+      parameters:
+      - description: Payload Body [RAW]
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controller.Dosen'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Dosen'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Insert data dosen.
+      tags:
+      - Proyek
+  /proyekdosen/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Hapus data dosen.
+      parameters:
+      - description: Masukan ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Delete data dosen.
+      tags:
+      - Proyek
+    get:
+      consumes:
+      - application/json
+      description: Ambil per ID data dosen.
+      parameters:
+      - description: Masukan ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Dosen'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Get By ID Data Dosen.
+      tags:
+      - Proyek
+    put:
+      consumes:
+      - application/json
+      description: Ubah data dosen.
+      parameters:
+      - description: Masukan ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Payload Body [RAW]
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controller.Dosen'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Dosen'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Update data dosen.
+      tags:
+      - Proyek
+  /proyekmahasiswa:
+    get:
+      consumes:
+      - application/json
+      description: Mengambil semua data mahasiswa.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Mahasiswa'
+      summary: Get All Data Mahasiswa.
+      tags:
+      - Proyek
+    post:
+      consumes:
+      - application/json
+      description: Input data mahasiswa.
+      parameters:
+      - description: Payload Body [RAW]
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controller.Mahasiswa'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Mahasiswa'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Insert data mahasiswa.
+      tags:
+      - Proyek
+  /proyekmahasiswa/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Hapus data mahasiswa.
+      parameters:
+      - description: Masukan ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Delete data mahasiswa.
+      tags:
+      - Proyek
+    get:
+      consumes:
+      - application/json
+      description: Ambil per ID data mahasiswa.
+      parameters:
+      - description: Masukan ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Mahasiswa'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Get By ID Data Mahasiswa.
+      tags:
+      - Proyek
+    put:
+      consumes:
+      - application/json
+      description: Ubah data mahasiswa.
+      parameters:
+      - description: Masukan ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Payload Body [RAW]
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controller.Mahasiswa'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Mahasiswa'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Update data mahasiswa.
+      tags:
+      - Proyek
   /upd/{id}:
     put:
       consumes:
